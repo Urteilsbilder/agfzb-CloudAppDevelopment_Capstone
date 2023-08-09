@@ -26,7 +26,7 @@ def get_request(url, **kwargs):
             params["version"] = kwargs["version"]
             params["features"] = kwargs["features"]
             params["return_analyzed_text"] = kwargs["return_analyzed_text"]
-            response = requests.get("https://api.au-syd.natural-language-understanding.watson.cloud.ibm.com/instances/499e2f9d-dc23-4cb5-aa3d-c179e82ab061", params=params, headers={'Content-Type': 'application/json'}, 
+            response = requests.get(url, params=params, headers={'Content-Type': 'application/json'}, 
                         auth=HTTPBasicAuth('apikey', "gjT6JluHqCjWnUc64L-jHCb_AB1Of152W0cha9FANiKc"))
     except:
         # If any error occurs
@@ -99,5 +99,6 @@ def get_dealer_reviews_from_cf(url, dealerId):
 def analyze_review_sentiments(text, **kwargs):
   results = get_request("https://api.au-syd.natural-language-understanding.watson.cloud.ibm.com/instances/499e2f9d-dc23-4cb5-aa3d-c179e82ab061/v1/analyze", 
                 text=text, version="2019-07-12", features="emotion", return_analyzed_text=True)
-  print(results)
-  return results 
+  emotion = results["emotion"]["document"]["emotion"]
+  print('positive' if emotion["joy"] > emotion["sadness"] else 'negative')
+  return 'positive' if emotion["joy"] > emotion["sadness"] else 'negative' 

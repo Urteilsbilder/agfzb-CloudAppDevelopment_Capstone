@@ -8,9 +8,35 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-
+    <script type="text/javascript">
+        $('.date-own').datepicker({
+           format: 'mm/dd/yyyy'
+         });
+   </script>
 </head>
-    <body>
+    <body class="mx-2">
+        <h1>Add a Review</h1>
     <!--Add review form here -->
+    <form class="mt-3" action="{% url 'djangoapp:add_review' dealer_id %}" method="post">
+        <div class="form-group">
+            <span class="font-weight-bold">Enter the review content:</span>
+            <textarea class="form-control" id="content" name="content" rows="2" required></textarea>
+            <input class="form-check-input ml-2" type="checkbox" value="" name="purchasecheck" id="purchasecheck">
+            <label class="form-check-label ml-4" for="purchasecheck">
+                Has purchaseed the car from Sub-Ex Car Dealership? (select purchased car information below if checked)
+            </label>
+            <br />
+            <span class="font-weight-bold">Select your car (model-make-year):</span>
+            <select name="car" id="car" class="form-select" required>
+                {% for car in car_models %}
+                    <option selected value={{car.id}}>{{car.name}}-{{car.carMake.name}}-{{ car.year|date:"Y" }}</option>
+                {% endfor %}
+            </select>
+            <br />
+            <div class="mt-3 font-weight-bold">Select Your Purchase Date:</div>
+            <input class="date-own form-control" data-provide="datepicker" type="text" name="purchasedate" id="purchasedate"></input>
+            <button type="button" class="btn btn-primary mt-2" type="submit">Submit</button>
+        </div>
+    </form>
     </body>
 </html>

@@ -36,6 +36,7 @@ class CarModel(models.Model):
     def __str__(self):
         return "Dealer Id: " + str(self.dealerId) + ", " + \
                "Name: " + self.name + ", " + \
+               "Year: " + str(self.year.year) + ", " + \
                "Type: " + self.type + ", " 
 
 
@@ -96,4 +97,12 @@ class DealerReview:
         self.id = id
 
     def __str__(self):
-        return "Review Dealer name: " + self.name
+         return "Dealership: " + self.dealership + ", " + \
+                "Name" + self.name + ", " + \
+                "Purchase" + self.purchase + ", " + \
+                "Review" + self.review + ", " + \
+                "Purchase Date" + self.purchase_date + ", " + \
+                "car_make" + self.car_make + ", " + \
+                "car_year" + self.car_year + ", " + \
+                "sentiment" + self.sentiment + ", " + \
+                "id" + self.id
